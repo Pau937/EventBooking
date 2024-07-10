@@ -15,4 +15,8 @@
     <ProjectReference Include="..\EventBooking.Infrastructure\EventBooking.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>

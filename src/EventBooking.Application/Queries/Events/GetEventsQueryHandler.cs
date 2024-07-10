@@ -2,24 +2,21 @@
 using EventBooking.Domain.DataAccess;
 using EventBooking.Domain.Models;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace EventBooking.Application.Queries.Events
 {
     public class GetEventsQueryHandler(IRepository<Event> eventRepository) : IRequestHandler<GetEventsQuery, GetEventsQueryResponse>
     {
-        public async Task<GetEventsQueryResponse> Handle(GetEventsQuery request, CancellationToken cancellationToken)
+        public Task<GetEventsQueryResponse> Handle(GetEventsQuery request, CancellationToken cancellationToken)
         {
             var events = eventRepository.GetAll();
 
-            if (!string.IsNullOrEmpty(request.SearchTerm))
+            if (!string.IsNullOrEmpty(request.Country))
             {
-                events = events.Where(x => x.Name.Contains(request.SearchTerm)
-                    || x.Description.Contains(request.SearchTerm)
-                    || x.Country.Contains(request.SearchTerm));
+                events = events.Where(x => x.Country.Contains(request.Country));
             }
 
-            return new GetEventsQueryResponse(await events.Skip(request.Skip).Take(request.Take).ToListAsync());
+            return Task.FromResult(new GetEventsQueryResponse(events.Skip(request.Skip).Take(request.Take)));
         }
     }
 }

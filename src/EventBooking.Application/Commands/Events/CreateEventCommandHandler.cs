@@ -4,13 +4,13 @@ using MediatR;
 
 namespace EventBooking.Application.Commands.Events
 {
-    public class CreateEventCommandHandler(IRepository<Event> eventsRepository) : IRequestHandler<CreateEventCommand, bool>
+    public class CreateEventCommandHandler(IRepository<Event> eventsRepository) : IRequestHandler<CreateEventCommand, int>
     {
-        public async Task<bool> Handle(CreateEventCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateEventCommand request, CancellationToken cancellationToken)
         {
             var newEvent = new Event(request.Name, request.Description, request.Country, request.StartDate, 10);
 
-            var result = await eventsRepository.Add(newEvent);
+            var result = await eventsRepository.AddAsync(newEvent);
 
             return result;
         }

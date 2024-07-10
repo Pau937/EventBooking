@@ -17,11 +17,13 @@ namespace EventBooking.Infrastructure.Repositories
             return dbContext.Set<T>();
         }
 
-        public async Task<bool> Add(T entity)
+        public async Task<int> AddAsync(T entity)
         {
             dbContext.Set<T>().Add(entity);
 
-            return await dbContext.SaveChangesAsync() > 0;
+            await dbContext.SaveChangesAsync();
+
+            return entity.Id;
         }
 
         public async Task<bool> UpdateAsync(T entity)

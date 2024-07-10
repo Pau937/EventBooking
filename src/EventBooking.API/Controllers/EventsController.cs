@@ -3,6 +3,7 @@ using EventBooking.Application.Commands.Events;
 using EventBooking.Application.Queries.Events;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EventBooking.API.Controllers
 {
@@ -11,11 +12,13 @@ namespace EventBooking.API.Controllers
     public class EventsController(ISender sender) : ControllerBase
     {
         [HttpGet]
-        public async Task<IActionResult> Get(string? searchTerm, int take = 20, int skip = 0)
+        public async Task<IActionResult> Get(string? country, int take = 20, int skip = 0)
         {
-            var result = await sender.Send(new GetEventsQuery(searchTerm, take, skip));
+            var result = await sender.Send(new GetEventsQuery(country, take, skip));
 
-            return Ok(result);
+            var dtos = await result.Events.Select(x => new EventBasicDto(x.Name, x.Country, x.StartDate)).ToListAsync();
+
+            return Ok(dtos);
         }
 
         [HttpGet]
@@ -29,7 +32,9 @@ namespace EventBooking.API.Controllers
                 return NotFound($"There is no event with the given id: {id}.");
             }
 
-            return Ok(result);
+            var dto = new EventDto(result.Name, result.Description, result.Country, result.StartDate, result.NumberOfSeats);
+
+            return Ok(dto);
         }
 
         [HttpPost]
@@ -37,9 +42,9 @@ namespace EventBooking.API.Controllers
         {
             var result = await sender.Send(new CreateEventCommand(dto.Name, dto.Description, dto.Country, dto.StartDate, dto.NumberOfSeats));
 
-            if (result)
+            if (result > 0)
             {
-                return Created();
+                return CreatedAtAction(nameof(GetById), new { id = result }, result);
             }
 
             return BadRequest("Something went wrong.");
