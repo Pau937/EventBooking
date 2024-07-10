@@ -1,15 +1,18 @@
-﻿using EventBooking.Domain.Models;
+﻿using EventBooking.Domain.DataAccess;
+using EventBooking.Domain.Models;
 using MediatR;
 
 namespace EventBooking.Application.Commands.Events
 {
-    public class CreateEventCommandHandler : IRequestHandler<CreateEventCommand, bool>
+    public class CreateEventCommandHandler(IRepository<Event> eventsRepository) : IRequestHandler<CreateEventCommand, bool>
     {
-        public Task<bool> Handle(CreateEventCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(CreateEventCommand request, CancellationToken cancellationToken)
         {
-            var ev = new Event(0, request.Name, request.Country, request.Description, request.StartDate, 10);
+            var ev = new Event(request.Name, request.Country, request.Description, request.StartDate, 10);
 
-            return Task.FromResult(true);
+            var result = await eventsRepository.Add(ev);
+
+            return result;
         }
     }
 }

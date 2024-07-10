@@ -4,7 +4,7 @@ namespace EventBooking.Domain.Models
 {
     public sealed class Event : Entity
     {
-        public Event(int id, string name, string country, string description, DateTime startDay, int numberOfSeats) : base(id)
+        public Event(string name, string description, string country, DateTime startDay, int numberOfSeats)
         {
             Name = name;
             Country = country;

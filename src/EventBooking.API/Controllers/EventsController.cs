@@ -3,7 +3,6 @@ using EventBooking.Application.Commands.Events;
 using EventBooking.Application.Queries.Events;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Globalization;
 
 namespace EventBooking.API.Controllers
 {
