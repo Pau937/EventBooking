@@ -10,5 +10,15 @@ namespace EventBooking.Infrastructure.DataContext
         }
 
         public DbSet<Event> Events { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            //For SQL provider
+            modelBuilder.Entity<Event>()
+                .HasIndex(x => x.Name)
+                .IsUnique(true);
+        }
     }
 }

@@ -4,17 +4,32 @@ namespace EventBooking.Domain.Models
 {
     public sealed class Event : Entity
     {
+        private const int MAX_NAME_LENGTH = 50;
+        private const int MAX_COUNTRY_LENGTH = 20;
+        private const int MAX_NUMBER_OF_SEATS = 100;
+
         public Event(string name, string description, string country, DateTime startDate, int numberOfSeats)
         {
-            Name = name;
-            Country = country;
-            Description = description;
-            StartDate = startDate;
-            NumberOfSeats = numberOfSeats;
+            Update(name, description, country, startDate, numberOfSeats);
         }
 
         public void Update(string name, string description, string country, DateTime startDate, int numberOfSeats)
         {
+            if (name.Length > MAX_NAME_LENGTH)
+            {
+                throw new ArgumentException($"The {nameof(Name)} max length is {MAX_NAME_LENGTH}.");
+            }
+
+            if (country.Length > MAX_COUNTRY_LENGTH)
+            {
+                throw new ArgumentException($"The {nameof(Country)} max length is {MAX_COUNTRY_LENGTH}.");
+            }
+
+            if (numberOfSeats > MAX_NUMBER_OF_SEATS)
+            {
+                throw new ArgumentException($"The {nameof(NumberOfSeats)} max is {MAX_NUMBER_OF_SEATS}.");
+            }
+
             Name = name;
             Description = description;
             Country = country;
