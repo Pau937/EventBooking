@@ -8,5 +8,6 @@ namespace EventBooking.Domain.DataAccess
         IQueryable<T> GetAll();
         Task<int> AddAsync(T entity);
         Task<bool> UpdateAsync(T entity);
+        Task<bool> DeleteAsync(T entity);
     }
 }

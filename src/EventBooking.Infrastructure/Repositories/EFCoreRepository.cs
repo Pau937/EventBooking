@@ -32,5 +32,12 @@ namespace EventBooking.Infrastructure.Repositories
 
             return await dbContext.SaveChangesAsync() > 0;
         }
+
+        public async Task<bool> DeleteAsync(T entity)
+        {
+            dbContext.Set<T>().Remove(entity);
+
+            return await dbContext.SaveChangesAsync() > 0;
+        }
     }
 }

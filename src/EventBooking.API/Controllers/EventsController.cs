@@ -62,5 +62,18 @@ namespace EventBooking.API.Controllers
 
             return BadRequest("Something went wrong.");
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await sender.Send(new DeleteEventCommand(id));
+
+            if (result)
+            {
+                return NoContent();
+            }
+
+            return BadRequest("Something went wrong.");
+        }
     }
 }
