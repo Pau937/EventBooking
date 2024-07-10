@@ -7,5 +7,6 @@ namespace EventBooking.Domain.DataAccess
         Task<T?> GetByIdAsync(int id);
         IQueryable<T> GetAll();
         Task<bool> Add(T entity);
+        Task<bool> UpdateAsync(T entity);
     }
 }

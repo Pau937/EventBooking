@@ -8,9 +8,9 @@ namespace EventBooking.Application.Commands.Events
     {
         public async Task<bool> Handle(CreateEventCommand request, CancellationToken cancellationToken)
         {
-            var ev = new Event(request.Name, request.Country, request.Description, request.StartDate, 10);
+            var newEvent = new Event(request.Name, request.Description, request.Country, request.StartDate, 10);
 
-            var result = await eventsRepository.Add(ev);
+            var result = await eventsRepository.Add(newEvent);
 
             return result;
         }

@@ -35,14 +35,27 @@ namespace EventBooking.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateEventDto dto)
         {
-            var result = await sender.Send(new CreateEventCommand(dto.Name, dto.Country, dto.Description, dto.StartDate, dto.NumberOfSeats));
+            var result = await sender.Send(new CreateEventCommand(dto.Name, dto.Description, dto.Country, dto.StartDate, dto.NumberOfSeats));
 
             if (result)
             {
                 return Created();
             }
 
-            return Ok();
+            return BadRequest("Something went wrong.");
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] UpdateEventDto dto)
+        {
+            var result = await sender.Send(new UpdateEventCommand(dto.Id, dto.Name, dto.Description, dto.Country, dto.StartDate, dto.NumberOfSeats));
+
+            if (result)
+            {
+                return Ok();
+            }
+
+            return BadRequest("Something went wrong.");
         }
     }
 }

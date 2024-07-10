@@ -1,4 +1,5 @@
 ﻿using EventBooking.Domain.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace EventBooking.Domain.Models
 {
@@ -9,6 +10,15 @@ namespace EventBooking.Domain.Models
             Name = name;
             Country = country;
             Description = description;
+            StartDay = startDay;
+            NumberOfSeats = numberOfSeats;
+        }
+
+        public void Update(string name, string description, string country, DateTime startDay, int numberOfSeats)
+        {
+            Name = name;
+            Description = description;
+            Country = country;
             StartDay = startDay;
             NumberOfSeats = numberOfSeats;
         }
