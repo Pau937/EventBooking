@@ -1,6 +1,12 @@
-@EventBooking.API_HostAddress = http://localhost:5122
+@EventBooking.API_HostAddress = https://localhost:7030
 
-GET {{EventBooking.API_HostAddress}}/weatherforecast/
+GET {{EventBooking.API_HostAddress}}/api/events
 Accept: application/json
 
 ###
+GET {{EventBooking.API_HostAddress}}/api/events?skip=1&take=1
+Accept: application/json
+
+###
+GET {{EventBooking.API_HostAddress}}/api/events?searchTerm=test2
+Accept: application/json
