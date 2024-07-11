@@ -21,7 +21,8 @@ namespace EventBooking.API.Controllers
         public async Task<IActionResult> Get(string? country, int take = 20, int skip = 0)
         {
             var result = await sender.Send(new GetEventsQuery(country, take, skip));
-            var pagedListDto = mapper.Map<PagedList<EventViewModel>, PagedList<EventBasicDto>>(result.Value);
+
+            var pagedListDto = mapper.Map<PagedList<EventViewModel>, PagedList<EventBasicDto>>(result.Value!);
 
             return Ok(pagedListDto);
         }

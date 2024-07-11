@@ -15,7 +15,7 @@ namespace EventBooking.Application.Results
         }
 
         public bool IsFailure { get => Error is not null; }
-        public T? Value { get; set; }
-        public IError? Error { get; set; }
+        public T? Value { get; private set; }
+        public IError? Error { get; private set; }
     }
 }
