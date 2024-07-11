@@ -1,4 +1,5 @@
-﻿using EventBooking.API.Dtos;
+﻿using Asp.Versioning;
+using EventBooking.API.Dtos;
 using EventBooking.Application.Commands.Registrations;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -6,8 +7,9 @@ using System.Net;
 
 namespace EventBooking.API.Controllers
 {
+    [ApiVersion(1)]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[Controller]")]
     public class RegistrationsController(ISender sender) : ControllerBase
     {
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]

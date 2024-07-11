@@ -1,4 +1,5 @@
-﻿using EventBooking.API.Dtos;
+﻿using Asp.Versioning;
+using EventBooking.API.Dtos;
 using EventBooking.Application.Commands.Events;
 using EventBooking.Application.Models;
 using EventBooking.Application.Queries.Events;
@@ -8,8 +9,9 @@ using System.Net;
 
 namespace EventBooking.API.Controllers
 {
+    [ApiVersion(1)]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[Controller]")]
     public class EventsController(ISender sender) : ControllerBase
     {
         [ProducesResponseType(typeof(PagedList<EventBasicDto>), (int)HttpStatusCode.OK)]
