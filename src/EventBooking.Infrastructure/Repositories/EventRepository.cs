@@ -9,12 +9,12 @@ namespace EventBooking.Infrastructure.Repositories
     {
         public async Task<bool> IsNameExists(string name)
         {
-            return await dbContext.Events.AnyAsync(e => e.Name == name);
+            return await _dbContext.Events.AnyAsync(e => e.Name == name);
         }
 
         public override async Task<Event?> GetByIdAsync(int id)
         {
-            return await dbContext.Events.Include(x => x.Subscriptions).FirstOrDefaultAsync(x => x.Id == id);
+            return await _dbContext.Events.Include(x => x.Registrations).FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }

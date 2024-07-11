@@ -2,9 +2,9 @@
 
 namespace EventBooking.Domain.Models
 {
-    public sealed class Subscription : Entity
+    public sealed class Registration : Entity
     {
-        public Subscription(int eventId, string email)
+        public Registration(int eventId, string email)
         {
             EventId = eventId;
             Email = email;

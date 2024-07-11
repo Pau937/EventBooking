@@ -42,6 +42,6 @@ namespace EventBooking.Domain.Models
         public string Description { get; private set; }
         public DateTime StartDate { get; private set; }
         public int NumberOfSeats { get; private set; }
-        public IList<Subscription> Subscriptions { get; } = new List<Subscription>();
+        public IList<Registration> Registrations { get; } = new List<Registration>();
     }
 }

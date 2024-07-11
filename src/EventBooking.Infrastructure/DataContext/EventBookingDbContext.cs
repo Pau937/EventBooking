@@ -10,7 +10,7 @@ namespace EventBooking.Infrastructure.DataContext
         }
 
         public DbSet<Event> Events { get; set; }
-        public DbSet<Subscription> Subscriptions { get; set; }
+        public DbSet<Registration> Registrations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -21,15 +21,15 @@ namespace EventBooking.Infrastructure.DataContext
                 .HasIndex(x => x.Name)
                 .IsUnique(true);
 
-            modelBuilder.Entity<Subscription>()
+            modelBuilder.Entity<Registration>()
                 .HasKey(s => new { s.EventId, s.Email });
 
-            modelBuilder.Entity<Subscription>()
+            modelBuilder.Entity<Registration>()
                 .Ignore(x => x.Id);
 
-            modelBuilder.Entity<Subscription>()
+            modelBuilder.Entity<Registration>()
                 .HasOne(s => s.Event)
-                .WithMany(e => e.Subscriptions)
+                .WithMany(e => e.Registrations)
                 .HasForeignKey(s => s.EventId)
                 .OnDelete(DeleteBehavior.Cascade);
         }

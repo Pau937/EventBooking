@@ -7,37 +7,39 @@ namespace EventBooking.Infrastructure.Repositories
 {
     public class EFCoreRepository<T>(EventBookingDbContext dbContext) : IRepository<T> where T : Entity
     {
+        protected readonly EventBookingDbContext _dbContext = dbContext;
+
         public virtual async Task<T?> GetByIdAsync(int id)
         {
-            return await dbContext.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
+            return await _dbContext.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public IQueryable<T> GetAll()
         {
-            return dbContext.Set<T>();
+            return _dbContext.Set<T>();
         }
 
         public async Task<T> AddAsync(T entity)
         {
-            dbContext.Set<T>().Add(entity);
+            _dbContext.Set<T>().Add(entity);
 
-            await dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
 
             return entity;
         }
 
         public async Task<bool> UpdateAsync(T entity)
         {
-            dbContext.Set<T>().Update(entity);
+            _dbContext.Set<T>().Update(entity);
 
-            return await dbContext.SaveChangesAsync() > 0;
+            return await _dbContext.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> DeleteAsync(T entity)
         {
-            dbContext.Set<T>().Remove(entity);
+            _dbContext.Set<T>().Remove(entity);
 
-            return await dbContext.SaveChangesAsync() > 0;
+            return await _dbContext.SaveChangesAsync() > 0;
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using EventBooking.API.Dtos;
-using EventBooking.Application.Commands.Subscriptions;
+using EventBooking.Application.Commands.Registrations;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,12 +7,12 @@ namespace EventBooking.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class SubscriptionsController(ISender sender) : ControllerBase
+    public class RegistrationsController(ISender sender) : ControllerBase
     {
         [HttpPost]
-        public async Task<IActionResult> Subscribe([FromBody] CreateSubscriptionDto dto)
+        public async Task<IActionResult> Register([FromBody] CreateRegistrationDto dto)
         {
-            var result = await sender.Send(new CreateSubscriptionCommand(dto.Email, dto.EventId));
+            var result = await sender.Send(new CreateRegistrationToEventCommand(dto.Email, dto.EventId));
 
             if (result.IsFailure)
             {
