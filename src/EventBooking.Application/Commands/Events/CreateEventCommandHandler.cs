@@ -10,12 +10,12 @@ namespace EventBooking.Application.Commands.Events
     {
         public async Task<Result<int>> Handle(CreateEventCommand request, CancellationToken cancellationToken)
         {
-            if (await eventsRepository.IsNameExists(request.Name))
+            var newEvent = new Event(request.Name, request.Description, request.Country, request.StartDate, 10);
+
+            if (await eventsRepository.IsNameExists(newEvent.Name, newEvent.Id))
             {
                 return new Result<int>(new EventNameAlreadyExistsError());
             }
-
-            var newEvent = new Event(request.Name, request.Description, request.Country, request.StartDate, 10);
 
             var result = await eventsRepository.AddAsync(newEvent);
 

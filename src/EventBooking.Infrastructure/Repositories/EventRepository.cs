@@ -7,9 +7,9 @@ namespace EventBooking.Infrastructure.Repositories
 {
     public class EventRepository(EventBookingDbContext dbContext) : EFCoreRepository<Event>(dbContext), IEventRepository
     {
-        public async Task<bool> IsNameExists(string name)
+        public async Task<bool> IsNameExists(string name, int id)
         {
-            return await _dbContext.Events.AnyAsync(e => e.Name == name);
+            return await _dbContext.Events.AnyAsync(x => x.Name == name && x.Id != id);
         }
 
         public override async Task<Event?> GetByIdAsync(int id)

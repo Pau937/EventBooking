@@ -4,6 +4,6 @@ namespace EventBooking.Domain.DataAccess
 {
     public interface IEventRepository : IRepository<Event>
     {
-        Task<bool> IsNameExists(string name);
+        Task<bool> IsNameExists(string name, int id);
     }
 }

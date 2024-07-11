@@ -9,21 +9,21 @@ namespace EventBooking.Application.Commands.Events
     {
         public async Task<Result<bool>> Handle(UpdateEventCommand request, CancellationToken cancellationToken)
         {
-            var entity = await eventsRepository.GetByIdAsync(request.Id);
+            var ev = await eventsRepository.GetByIdAsync(request.Id);
 
-            if (entity is null)
+            if (ev is null)
             {
                 return new Result<bool>(new EventDoesNotExistsError());
             }
 
-            if (await eventsRepository.IsNameExists(request.Name))
+            if (await eventsRepository.IsNameExists(request.Name, request.Id))
             {
                 return new Result<bool>(new EventNameAlreadyExistsError());
             }
 
-            entity.Update(request.Name, request.Description, request.Country, request.StartDate, request.NumberOfSeats);
+            ev.Update(request.Name, request.Description, request.Country, request.StartDate, request.NumberOfSeats);
 
-            var result = await eventsRepository.UpdateAsync(entity);
+            var result = await eventsRepository.UpdateAsync(ev);
 
             return new Result<bool>(result);
         }
