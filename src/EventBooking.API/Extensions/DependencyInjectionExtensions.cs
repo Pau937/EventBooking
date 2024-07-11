@@ -29,8 +29,8 @@ namespace EventBooking.API.Extensions
                     {
                         return new FixedWindowRateLimiterOptions
                         {
-                            PermitLimit = 1,
-                            Window = TimeSpan.FromSeconds(10)
+                            PermitLimit = 5,
+                            Window = TimeSpan.FromSeconds(60)
                         };
                     });
                 });

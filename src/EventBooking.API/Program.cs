@@ -28,6 +28,11 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
+if (app.Environment.IsProduction())
+{
+    app.UseRateLimiter();
+}
+
 app.UseSerilogRequestLogging();
 
 app.Run();
