@@ -33,12 +33,10 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
     
-- task: PublishBuildArtifacts@1
-
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
     azureSubscription: 'Płatność zgodnie z rzeczywistym użyciem(252becd8-d4e6-4dc6-ada0-caba4da0c4b3)'
     appType: 'webApp'
     WebAppName: 'EventsBooking937'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/**/*.zip'
+    packageForLinux: '$(build.artifactStagingDirectory)/**/*.zip'
