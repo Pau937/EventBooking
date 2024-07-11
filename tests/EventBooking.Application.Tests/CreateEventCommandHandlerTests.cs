@@ -16,7 +16,7 @@ namespace EventsBooking.Application.Tests
             var repo = new Mock<IEventRepository>();
 
             repo.Setup(x => x.AddAsync(It.IsAny<Event>())).ReturnsAsync(new Event("Event", "Description", "Country", new DateTime(2022, 10, 10), 20));
-            repo.Setup(x => x.IsNameExists(It.IsAny<string>())).ReturnsAsync(false);
+            repo.Setup(x => x.IsNameExists(It.IsAny<string>(), It.IsAny<int>())).ReturnsAsync(false);
 
             var handler = new CreateEventCommandHandler(repo.Object);
             var command = new CreateEventCommand("Event", "Description", "Country", new DateTime(2022, 10, 10), 20);
@@ -35,7 +35,7 @@ namespace EventsBooking.Application.Tests
             //Arrange
             var repo = new Mock<IEventRepository>();
 
-            repo.Setup(x => x.IsNameExists(It.IsAny<string>())).ReturnsAsync(true);
+            repo.Setup(x => x.IsNameExists(It.IsAny<string>(), It.IsAny<int>())).ReturnsAsync(true);
 
             var handler = new CreateEventCommandHandler(repo.Object);
             var command = new CreateEventCommand("Event", "Description", "Country", new DateTime(2022, 10, 10), 20);
