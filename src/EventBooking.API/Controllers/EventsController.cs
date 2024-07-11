@@ -50,9 +50,7 @@ namespace EventBooking.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateEventDto dto)
         {
-            dto.StartDate = ToUtcTime(dto.StartDate);
-
-            var result = await sender.Send(new CreateEventCommand(dto.Name.Trim(), dto.Description, dto.Country, dto.StartDate, dto.NumberOfSeats));
+            var result = await sender.Send(new CreateEventCommand(dto.Name.Trim(), dto.Description, dto.Country, ToUtcTime(dto.StartDate), dto.NumberOfSeats));
 
             if (result.IsFailure)
             {
@@ -67,9 +65,7 @@ namespace EventBooking.API.Controllers
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] UpdateEventDto dto)
         {
-            dto.StartDate = ToUtcTime(dto.StartDate);
-
-            var result = await sender.Send(new UpdateEventCommand(dto.Id, dto.Name.Trim(), dto.Description, dto.Country, dto.StartDate, dto.NumberOfSeats));
+            var result = await sender.Send(new UpdateEventCommand(dto.Id, dto.Name.Trim(), dto.Description, dto.Country, ToUtcTime(dto.StartDate), dto.NumberOfSeats));
 
             if (result.IsFailure)
             {
