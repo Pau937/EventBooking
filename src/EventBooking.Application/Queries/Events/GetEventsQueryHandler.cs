@@ -1,4 +1,4 @@
-﻿using EventBooking.Application.Queries.Events.Responses;
+﻿using EventBooking.Application.Models;
 using EventBooking.Application.Results;
 using EventBooking.Domain.DataAccess;
 using EventBooking.Domain.Models;
@@ -6,20 +6,20 @@ using MediatR;
 
 namespace EventBooking.Application.Queries.Events
 {
-    public class GetEventsQueryHandler(IRepository<Event> eventRepository) : IRequestHandler<GetEventsQuery, Result<GetEventsQueryResponse>>
+    public class GetEventsQueryHandler(IRepository<Event> eventRepository) : IRequestHandler<GetEventsQuery, Result<PagedList<EventViewModel>>>
     {
-        public Task<Result<GetEventsQueryResponse>> Handle(GetEventsQuery request, CancellationToken cancellationToken)
+        public async Task<Result<PagedList<EventViewModel>>> Handle(GetEventsQuery request, CancellationToken cancellationToken)
         {
-            var events = eventRepository.GetAll();
+            var query = eventRepository.GetAll();
 
             if (!string.IsNullOrEmpty(request.Country))
             {
-                events = events.Where(x => x.Country.Contains(request.Country));
+                query = query.Where(x => x.Country.Contains(request.Country));
             }
 
-            var result = new GetEventsQueryResponse(events.Skip(request.Skip).Take(request.Take));
+            var pagedList = await PagedList<EventViewModel>.CreateAsync(query.Select(x => new EventViewModel(x.Name, x.Description, x.StartDate)), request.Skip, request.Take);
 
-            return Task.FromResult(new Result<GetEventsQueryResponse>(result));
+            return new Result<PagedList<EventViewModel>>(pagedList);
         }
     }
 }

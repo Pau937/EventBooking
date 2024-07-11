@@ -3,7 +3,6 @@ using EventBooking.Application.Commands.Events;
 using EventBooking.Application.Queries.Events;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace EventBooking.API.Controllers
 {
@@ -16,9 +15,7 @@ namespace EventBooking.API.Controllers
         {
             var result = await sender.Send(new GetEventsQuery(country, take, skip));
 
-            var dtos = await result.Value!.Events.Select(x => new EventBasicDto(x.Name, x.Country, x.StartDate)).ToListAsync();
-
-            return Ok(dtos);
+            return Ok(result.Value);
         }
 
         [HttpGet]
