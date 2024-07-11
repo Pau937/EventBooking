@@ -4,5 +4,5 @@ using MediatR;
 
 namespace EventBooking.Application.Queries.Events
 {
-    public sealed record GetEventsQuery(string? Country, int Take = 20, int Skip = 0) : IRequest<Result<PagedList<EventViewModel>>>;
+    public sealed record GetEventsQuery(string? Country, int Take, int Skip) : IRequest<Result<PagedList<EventViewModel>>>;
 }

@@ -14,10 +14,10 @@ namespace EventBooking.Application.Queries.Events
 
             if (!string.IsNullOrEmpty(request.Country))
             {
-                query = query.Where(x => x.Country.Contains(request.Country));
+                query = query.Where(x => x.Country.ToLower().Contains(request.Country.ToLower()));
             }
 
-            var pagedList = await PagedList<EventViewModel>.CreateAsync(query.Select(x => new EventViewModel(x.Name, x.Description, x.StartDate)), request.Skip, request.Take);
+            var pagedList = await PagedList<EventViewModel>.CreateAsync(query.Select(x => new EventViewModel(x.Name, x.Country, x.StartDate)), request.Skip, request.Take);
 
             return new Result<PagedList<EventViewModel>>(pagedList);
         }
