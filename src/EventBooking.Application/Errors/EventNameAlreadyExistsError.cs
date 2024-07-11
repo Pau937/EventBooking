@@ -2,6 +2,6 @@
 {
     public class EventNameAlreadyExistsError : IError
     {
-        public string ErrorMessage => "Given name for the event already exists";
+        public string ErrorMessage => "The given name for the event already exists.";
     }
 }

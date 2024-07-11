@@ -1,4 +1,5 @@
 using Asp.Versioning;
+using EventBooking.API.AutoMapper;
 using EventBooking.API.Middlewares;
 using EventBooking.Application.Commands.Events;
 using EventBooking.Infrastructure.Extensions;
@@ -11,12 +12,15 @@ builder.Host.UseSerilog((context, loggerConfig) =>
     loggerConfig.ReadFrom.Configuration(context.Configuration);
 });
 
+builder.Services.AddAutoMapper(typeof(EventProfile));
+
 builder.Services.AddApiVersioning(option =>
 {
     option.AssumeDefaultVersionWhenUnspecified = true;
     option.DefaultApiVersion = new ApiVersion(1);
     option.ReportApiVersions = true;
-}).AddApiExplorer(options => {
+}).AddApiExplorer(options =>
+{
     options.GroupNameFormat = "'v'VVV";
     options.SubstituteApiVersionInUrl = true;
 });

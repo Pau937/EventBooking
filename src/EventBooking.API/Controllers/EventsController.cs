@@ -1,8 +1,10 @@
 ﻿using Asp.Versioning;
+using AutoMapper;
 using EventBooking.API.Dtos;
 using EventBooking.Application.Commands.Events;
 using EventBooking.Application.Models;
 using EventBooking.Application.Queries.Events;
+using EventBooking.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -12,14 +14,14 @@ namespace EventBooking.API.Controllers
     [ApiVersion(1)]
     [ApiController]
     [Route("api/v{version:apiVersion}/[Controller]")]
-    public class EventsController(ISender sender) : ControllerBase
+    public class EventsController(ISender sender, IMapper mapper) : ControllerBase
     {
         [ProducesResponseType(typeof(PagedList<EventBasicDto>), (int)HttpStatusCode.OK)]
         [HttpGet]
         public async Task<IActionResult> Get(string? country, int take = 20, int skip = 0)
         {
             var result = await sender.Send(new GetEventsQuery(country, take, skip));
-            var pagedListDto = new PagedListDto<EventBasicDto>(result.Value!.Values.Select(x => new EventBasicDto(x.Name, x.Country, x.StartDate)), result.Value.Total);
+            var pagedListDto = mapper.Map<PagedList<EventViewModel>, PagedList<EventBasicDto>>(result.Value);
 
             return Ok(pagedListDto);
         }
@@ -37,7 +39,7 @@ namespace EventBooking.API.Controllers
                 return NotFound($"There is no event with the given id: {id}.");
             }
 
-            var dto = new EventDto(result.Value.Name, result.Value.Description, result.Value.Country, result.Value.StartDate, result.Value.NumberOfSeats);
+            var dto = mapper.Map<Event, EventDto>(result.Value);
 
             return Ok(dto);
         }

@@ -1,5 +1,4 @@
-﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace EventBooking.Application.Models
 {
@@ -11,7 +10,7 @@ namespace EventBooking.Application.Models
             Total = total;
         }
 
-        public IEnumerable<T> Values { get; }
+        public IEnumerable<T> Values { get; } = [];
         public int Total { get; }
 
         public static async Task<PagedList<T>> CreateAsync(IQueryable<T> query, int skip, int take)
