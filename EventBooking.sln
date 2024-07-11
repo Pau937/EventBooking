@@ -15,9 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBooking.Application", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{315AD6BA-344C-46E2-A28C-F3443E68C914}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventsBooking.Application.Tests", "tests\EventsBooking.Application.Tests\EventsBooking.Application.Tests.csproj", "{B17279FA-F589-40C9-8739-CC66C313FF18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBooking.Application.Tests", "tests\EventBooking.Application.Tests\EventBooking.Application.Tests.csproj", "{B17279FA-F589-40C9-8739-CC66C313FF18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBooking.Domain.Tests", "tests\EventBooking.Domain.Tests\EventBooking.Domain.Tests.csproj", "{8105C78F-4544-4CB1-AC70-75C05560773C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBooking.Domain.Tests", "tests\EventBooking.Domain.Tests\EventBooking.Domain.Tests.csproj", "{8105C78F-4544-4CB1-AC70-75C05560773C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
