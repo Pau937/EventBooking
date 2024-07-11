@@ -14,12 +14,12 @@ namespace EventBooking.API.Controllers
         {
             var result = await sender.Send(new CreateSubscriptionCommand(dto.Email, dto.EventId));
 
-            if (result)
+            if (result.IsFailure)
             {
-                return Created();
+                return BadRequest(result.Error!.ErrorMessage);
             }
 
-            return BadRequest("Something went wrong.");
+            return Created();
         }
     }
 }

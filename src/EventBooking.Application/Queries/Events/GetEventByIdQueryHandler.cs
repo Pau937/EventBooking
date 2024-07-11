@@ -1,14 +1,17 @@
-﻿using EventBooking.Domain.DataAccess;
+﻿using EventBooking.Application.Results;
+using EventBooking.Domain.DataAccess;
 using EventBooking.Domain.Models;
 using MediatR;
 
 namespace EventBooking.Application.Queries.Events
 {
-    public class GetEventByIdQueryHandler(IRepository<Event> eventRepository) : IRequestHandler<GetEventByIdQuery, Event?>
+    public class GetEventByIdQueryHandler(IRepository<Event> eventRepository) : IRequestHandler<GetEventByIdQuery, Result<Event?>>
     {
-        public async Task<Event?> Handle(GetEventByIdQuery request, CancellationToken cancellationToken)
+        public async Task<Result<Event?>> Handle(GetEventByIdQuery request, CancellationToken cancellationToken)
         {
-            return await eventRepository.GetByIdAsync(request.Id);
+            var result = await eventRepository.GetByIdAsync(request.Id);
+
+            return new Result<Event?>(result);
         }
     }
 }

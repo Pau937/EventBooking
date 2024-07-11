@@ -16,7 +16,7 @@ namespace EventBooking.API.Controllers
         {
             var result = await sender.Send(new GetEventsQuery(country, take, skip));
 
-            var dtos = await result.Events.Select(x => new EventBasicDto(x.Name, x.Country, x.StartDate)).ToListAsync();
+            var dtos = await result.Value!.Events.Select(x => new EventBasicDto(x.Name, x.Country, x.StartDate)).ToListAsync();
 
             return Ok(dtos);
         }
@@ -27,12 +27,12 @@ namespace EventBooking.API.Controllers
         {
             var result = await sender.Send(new GetEventByIdQuery(id));
 
-            if (result is null)
+            if (result.Value is null)
             {
                 return NotFound($"There is no event with the given id: {id}.");
             }
 
-            var dto = new EventDto(result.Name, result.Description, result.Country, result.StartDate, result.NumberOfSeats);
+            var dto = new EventDto(result.Value.Name, result.Value.Description, result.Value.Country, result.Value.StartDate, result.Value.NumberOfSeats);
 
             return Ok(dto);
         }
@@ -42,12 +42,12 @@ namespace EventBooking.API.Controllers
         {
             var result = await sender.Send(new CreateEventCommand(dto.Name, dto.Description, dto.Country, dto.StartDate, dto.NumberOfSeats));
 
-            if (result > 0)
+            if (result.IsFailure)
             {
-                return CreatedAtAction(nameof(GetById), new { id = result }, result);
+                return BadRequest(result.Error!.ErrorMessage);
             }
 
-            return BadRequest("Something went wrong.");
+            return CreatedAtAction(nameof(GetById), new { id = result.Value }, result.Value);
         }
 
         [HttpPut]
@@ -55,12 +55,12 @@ namespace EventBooking.API.Controllers
         {
             var result = await sender.Send(new UpdateEventCommand(dto.Id, dto.Name, dto.Description, dto.Country, dto.StartDate, dto.NumberOfSeats));
 
-            if (result)
+            if (result.IsFailure)
             {
-                return Ok();
+                return BadRequest(result.Error!.ErrorMessage);
             }
 
-            return BadRequest("Something went wrong.");
+            return Ok();
         }
 
         [HttpDelete]
@@ -69,12 +69,12 @@ namespace EventBooking.API.Controllers
         {
             var result = await sender.Send(new DeleteEventCommand(id));
 
-            if (result)
+            if (result.IsFailure)
             {
-                return NoContent();
+                return BadRequest(result.Error!.ErrorMessage);
             }
 
-            return BadRequest("Something went wrong.");
+            return NoContent();
         }
     }
 }

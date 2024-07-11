@@ -1,3 +1,4 @@
+using EventBooking.API.Middlewares;
 using EventBooking.Application.Commands.Events;
 using EventBooking.Infrastructure.Extensions;
 
@@ -15,6 +16,8 @@ builder.Services.AddMediatR(x =>
 });
 
 var app = builder.Build();
+
+app.UseMiddleware<ErrorsMiddleware>();
 
 app.MapControllers();
 

@@ -1,20 +1,24 @@
-﻿using EventBooking.Domain.DataAccess;
+﻿using EventBooking.Application.Errors;
+using EventBooking.Application.Results;
+using EventBooking.Domain.DataAccess;
 using MediatR;
 
 namespace EventBooking.Application.Commands.Events
 {
-    public class DeleteEventCommandHandler(IEventRepository eventsRepository) : IRequestHandler<DeleteEventCommand, bool>
+    public class DeleteEventCommandHandler(IEventRepository eventsRepository) : IRequestHandler<DeleteEventCommand, Result<bool>>
     {
-        public async Task<bool> Handle(DeleteEventCommand request, CancellationToken cancellationToken)
+        public async Task<Result<bool>> Handle(DeleteEventCommand request, CancellationToken cancellationToken)
         {
             var ev = await eventsRepository.GetByIdAsync(request.Id);
 
             if (ev is null)
             {
-                return false;
+                return new Result<bool>(new EventDoesNotExistsError());
             }
 
-            return await eventsRepository.DeleteAsync(ev);
+            var result = await eventsRepository.DeleteAsync(ev);
+
+            return new Result<bool>(result);
         }
     }
 }
