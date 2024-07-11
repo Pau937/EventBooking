@@ -52,7 +52,7 @@ namespace EventBooking.API.Controllers
         {
             dto.StartDate = ToUtcTime(dto.StartDate);
 
-            var result = await sender.Send(new CreateEventCommand(dto.Name, dto.Description, dto.Country, dto.StartDate, dto.NumberOfSeats));
+            var result = await sender.Send(new CreateEventCommand(dto.Name.Trim(), dto.Description, dto.Country, dto.StartDate, dto.NumberOfSeats));
 
             if (result.IsFailure)
             {
@@ -69,7 +69,7 @@ namespace EventBooking.API.Controllers
         {
             dto.StartDate = ToUtcTime(dto.StartDate);
 
-            var result = await sender.Send(new UpdateEventCommand(dto.Id, dto.Name, dto.Description, dto.Country, dto.StartDate, dto.NumberOfSeats));
+            var result = await sender.Send(new UpdateEventCommand(dto.Id, dto.Name.Trim(), dto.Description, dto.Country, dto.StartDate, dto.NumberOfSeats));
 
             if (result.IsFailure)
             {
