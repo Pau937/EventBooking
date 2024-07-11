@@ -6,7 +6,7 @@ namespace EventBooking.Domain.DataAccess
     {
         Task<T?> GetByIdAsync(int id);
         IQueryable<T> GetAll();
-        Task<int> AddAsync(T entity);
+        Task<T> AddAsync(T entity);
         Task<bool> UpdateAsync(T entity);
         Task<bool> DeleteAsync(T entity);
     }

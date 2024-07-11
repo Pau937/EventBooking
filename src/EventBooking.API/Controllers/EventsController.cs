@@ -64,6 +64,7 @@ namespace EventBooking.API.Controllers
         }
 
         [HttpDelete]
+        [Route("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var result = await sender.Send(new DeleteEventCommand(id));

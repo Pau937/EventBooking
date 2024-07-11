@@ -7,7 +7,7 @@ namespace EventBooking.Infrastructure.Repositories
 {
     public class EFCoreRepository<T>(EventBookingDbContext dbContext) : IRepository<T> where T : Entity
     {
-        public async Task<T?> GetByIdAsync(int id)
+        public virtual async Task<T?> GetByIdAsync(int id)
         {
             return await dbContext.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
         }
@@ -17,13 +17,13 @@ namespace EventBooking.Infrastructure.Repositories
             return dbContext.Set<T>();
         }
 
-        public async Task<int> AddAsync(T entity)
+        public async Task<T> AddAsync(T entity)
         {
             dbContext.Set<T>().Add(entity);
 
             await dbContext.SaveChangesAsync();
 
-            return entity.Id;
+            return entity;
         }
 
         public async Task<bool> UpdateAsync(T entity)

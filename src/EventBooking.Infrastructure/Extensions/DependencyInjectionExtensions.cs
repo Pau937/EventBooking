@@ -11,6 +11,8 @@ namespace EventBooking.Infrastructure.Extensions
         public static IServiceCollection AddInfrastructure(this IServiceCollection collection)
         {
             collection.AddScoped(typeof(IRepository<>), typeof(EFCoreRepository<>));
+            collection.AddScoped<IEventRepository, EventRepository>();
+            collection.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
             collection.AddDbContext<EventBookingDbContext>(x => x.UseInMemoryDatabase("BookingEventsDatabase"));
 
             return collection;

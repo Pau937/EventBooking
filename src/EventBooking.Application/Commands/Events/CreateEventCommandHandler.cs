@@ -17,7 +17,7 @@ namespace EventBooking.Application.Commands.Events
 
             var result = await eventsRepository.AddAsync(newEvent);
 
-            return result;
+            return result.Id;
         }
     }
 }
