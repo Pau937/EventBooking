@@ -40,4 +40,5 @@ steps:
     appType: 'webApp'
     WebAppName: 'EventsBooking937'
     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
-    AdditionalArguments: 
+
+- task: PublishBuildArtifacts@1
