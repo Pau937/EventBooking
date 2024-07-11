@@ -33,6 +33,12 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
     
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: '**/*.EventBooking.Domain.Tests.csproj'
+    testRunTitle: 'Domain tests'
+    
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
