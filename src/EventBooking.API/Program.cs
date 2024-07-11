@@ -1,8 +1,14 @@
 using EventBooking.API.Middlewares;
 using EventBooking.Application.Commands.Events;
 using EventBooking.Infrastructure.Extensions;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((context, loggerConfig) =>
+{
+    loggerConfig.ReadFrom.Configuration(context.Configuration);
+});
 
 builder.Services.AddControllers();
 builder.Services.AddInfrastructure();
@@ -21,12 +27,11 @@ app.UseMiddleware<ErrorsMiddleware>();
 
 app.MapControllers();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
+
+app.UseSerilogRequestLogging();
 
 app.Run();

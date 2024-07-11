@@ -2,7 +2,7 @@
 
 namespace EventBooking.API.Middlewares
 {
-    public class ErrorsMiddleware(RequestDelegate next)
+    public class ErrorsMiddleware(RequestDelegate next, ILogger<ErrorsMiddleware> logger)
     {
         public async Task Invoke(HttpContext context)
         {
@@ -12,7 +12,7 @@ namespace EventBooking.API.Middlewares
             }
             catch (Exception exception)
             {
-                //TODO: error logging
+                logger.LogError(exception.Message);
 
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
