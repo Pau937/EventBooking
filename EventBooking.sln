@@ -9,9 +9,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A156BB19-3B1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBooking.Domain", "src\EventBooking.Domain\EventBooking.Domain.csproj", "{764BE6B1-6152-404A-8BA5-D4D1A5E7BD33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBooking.Infrastructure", "src\EventBooking.Infrastructure\EventBooking.Infrastructure.csproj", "{C6BE3B14-CB04-45D4-8223-22F8F069C8D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBooking.Infrastructure", "src\EventBooking.Infrastructure\EventBooking.Infrastructure.csproj", "{C6BE3B14-CB04-45D4-8223-22F8F069C8D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBooking.Application", "src\EventBooking.Application\EventBooking.Application.csproj", "{90D18AB0-C6C0-4ACD-8C9D-286166C43164}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBooking.Application", "src\EventBooking.Application\EventBooking.Application.csproj", "{90D18AB0-C6C0-4ACD-8C9D-286166C43164}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{315AD6BA-344C-46E2-A28C-F3443E68C914}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventsBooking.Application.Tests", "tests\EventsBooking.Application.Tests\EventsBooking.Application.Tests.csproj", "{B17279FA-F589-40C9-8739-CC66C313FF18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBooking.Domain.Tests", "tests\EventBooking.Domain.Tests\EventBooking.Domain.Tests.csproj", "{8105C78F-4544-4CB1-AC70-75C05560773C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +41,14 @@ Global
 		{90D18AB0-C6C0-4ACD-8C9D-286166C43164}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90D18AB0-C6C0-4ACD-8C9D-286166C43164}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90D18AB0-C6C0-4ACD-8C9D-286166C43164}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B17279FA-F589-40C9-8739-CC66C313FF18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B17279FA-F589-40C9-8739-CC66C313FF18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B17279FA-F589-40C9-8739-CC66C313FF18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B17279FA-F589-40C9-8739-CC66C313FF18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8105C78F-4544-4CB1-AC70-75C05560773C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8105C78F-4544-4CB1-AC70-75C05560773C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8105C78F-4544-4CB1-AC70-75C05560773C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8105C78F-4544-4CB1-AC70-75C05560773C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +58,8 @@ Global
 		{764BE6B1-6152-404A-8BA5-D4D1A5E7BD33} = {A156BB19-3B19-4AEA-97DA-97399F74B68E}
 		{C6BE3B14-CB04-45D4-8223-22F8F069C8D1} = {A156BB19-3B19-4AEA-97DA-97399F74B68E}
 		{90D18AB0-C6C0-4ACD-8C9D-286166C43164} = {A156BB19-3B19-4AEA-97DA-97399F74B68E}
+		{B17279FA-F589-40C9-8739-CC66C313FF18} = {315AD6BA-344C-46E2-A28C-F3443E68C914}
+		{8105C78F-4544-4CB1-AC70-75C05560773C} = {315AD6BA-344C-46E2-A28C-F3443E68C914}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5E8E64D0-A41C-4587-AFA3-F917C6756AB3}
