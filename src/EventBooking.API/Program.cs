@@ -1,39 +1,21 @@
-using Asp.Versioning;
 using EventBooking.API.AutoMapper;
+using EventBooking.API.Extensions;
 using EventBooking.API.Middlewares;
-using EventBooking.Application.Commands.Events;
+using EventBooking.Application.Extensions;
 using EventBooking.Infrastructure.Extensions;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseSerilog((context, loggerConfig) =>
-{
-    loggerConfig.ReadFrom.Configuration(context.Configuration);
-});
+builder.Host.WithSerilog();
 
+builder.Services.WithRateLimiting();
 builder.Services.AddAutoMapper(typeof(EventProfile));
-
-builder.Services.AddApiVersioning(option =>
-{
-    option.AssumeDefaultVersionWhenUnspecified = true;
-    option.DefaultApiVersion = new ApiVersion(1);
-    option.ReportApiVersions = true;
-}).AddApiExplorer(options =>
-{
-    options.GroupNameFormat = "'v'VVV";
-    options.SubstituteApiVersionInUrl = true;
-});
-
+builder.Services.WithApiVersioning();
 builder.Services.AddControllers();
 builder.Services.AddInfrastructure();
-
+builder.Services.AddApplication();
 builder.Services.AddSwaggerGen();
-
-builder.Services.AddMediatR(x =>
-{
-    x.RegisterServicesFromAssembly(typeof(CreateEventCommand).Assembly);
-});
 
 var app = builder.Build();
 

@@ -7,6 +7,7 @@ using EventBooking.Application.Queries.Events;
 using EventBooking.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using System.Net;
 
 namespace EventBooking.API.Controllers
@@ -17,6 +18,7 @@ namespace EventBooking.API.Controllers
     public class EventsController(ISender sender, IMapper mapper) : ControllerBase
     {
         [ProducesResponseType(typeof(PagedList<EventBasicDto>), (int)HttpStatusCode.OK)]
+        [EnableRateLimiting("fixed")]
         [HttpGet]
         public async Task<IActionResult> Get(string? country, int take = 20, int skip = 0)
         {

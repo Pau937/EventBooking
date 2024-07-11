@@ -8,14 +8,14 @@ namespace EventBooking.Infrastructure.Extensions
 {
     public static class DependencyInjectionExtensions
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection collection)
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
-            collection.AddScoped(typeof(IRepository<>), typeof(EFCoreRepository<>));
-            collection.AddScoped<IEventRepository, EventRepository>();
-            collection.AddScoped<IRegistrationRepository, RegistrationRepository>();
-            collection.AddDbContext<EventBookingDbContext>(x => x.UseInMemoryDatabase("BookingEventsDatabase"));
+            services.AddScoped(typeof(IRepository<>), typeof(EFCoreRepository<>));
+            services.AddScoped<IEventRepository, EventRepository>();
+            services.AddScoped<IRegistrationRepository, RegistrationRepository>();
+            services.AddDbContext<EventBookingDbContext>(x => x.UseInMemoryDatabase("BookingEventsDatabase"));
 
-            return collection;
+            return services;
         }
     }
 }
